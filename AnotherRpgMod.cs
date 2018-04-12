@@ -20,7 +20,8 @@ namespace AnotherRpgMod
         Magic,
         Summon,
         Symphonic, //thorium
-        Radiant //thorium
+        Radiant, //thorium
+	Alchemic //tremor
 
     }
 
@@ -57,7 +58,8 @@ namespace AnotherRpgMod
 
     enum SupportedMod
     {
-        Thorium //only suported mod for now
+        Thorium,
+	Tremor //only suported mod for now
     }
 
     class Arpg : Mod
@@ -75,6 +77,7 @@ namespace AnotherRpgMod
         public static Dictionary<SupportedMod, bool> LoadedMods = new Dictionary<SupportedMod, bool>()
         {
             {SupportedMod.Thorium,false },
+	    {SupportedMod.Tremor,false },
             //{SupportedMod.Calamity,false },
             //{SupportedMod.Spirit,false }
 
@@ -133,6 +136,7 @@ namespace AnotherRpgMod
             Instance = this;
             ConfigFile.Init();
             LoadedMods[SupportedMod.Thorium] = ModLoader.GetMod("ThoriumMod") != null;
+	    LoadedMods[SupportedMod.Tremor] = ModLoader.GetMod("TremorMod") != null;
             StatsHotKey = RegisterHotKey("Open Stats Menu", "C");
             if (!Main.dedServ)
             {
