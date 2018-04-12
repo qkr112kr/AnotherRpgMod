@@ -335,13 +335,32 @@ namespace AnotherRpgMod.RPGModule
                             EquipedItemXp = Item.GetXp;
                             EquipedItemMaxXp = Item.GetMaxXp;
                         }
+                    
+                    if (Arpg.LoadedMods[SupportedMod.Tremor]) {
+                        
+                    }
+
+
+                    if (player.HeldItem != null && player.HeldItem.damage>0&& player.HeldItem.maxStack <= 1) { 
+                        Items.ItemUpdate Item = player.HeldItem.GetGlobalItem<Items.ItemUpdate>();
+                        if (Item != null && Item.NeedsSaving(player.HeldItem))
+                        {
+                            EquipedItemXp = Item.GetXp;
+                            EquipedItemMaxXp = Item.GetMaxXp;
+                        }
                     }
                 }
 
             }
             private void UpdateThoriumDamage(Player player)
             {
-                Mod Thorium = ModLoader.GetMod("ThoriumMod");
+                Mod Thorium = ModLoader.GetMod("Thorium");
+                //player.GetModPlayer<Thorium.ThoriumPlayer>().symphonicDamage *= GetDamageMult(DamageType.Symphonic);
+                //player.GetModPlayer<Thorium.ThoriumPlayer>().radiantBoost *= GetDamageMult(DamageType.Radiant);
+            }
+            private void UpdateTremorDamage(Player player)
+            {
+                Mod Tremor = ModLoader.GetMod("Tremor");
                 //player.GetModPlayer<Thorium.ThoriumPlayer>().symphonicDamage *= GetDamageMult(DamageType.Symphonic);
                 //player.GetModPlayer<Thorium.ThoriumPlayer>().radiantBoost *= GetDamageMult(DamageType.Radiant);
             }
@@ -436,6 +455,8 @@ namespace AnotherRpgMod.RPGModule
                         return (Stats.GetStat(Stat.Agi) * 0.025f + Stats.GetStat(Stat.Foc) * 0.025f) *statMultiplier + 0.4f;
                     case DamageType.Radiant:
                         return (Stats.GetStat(Stat.Int) * 0.025f + Stats.GetStat(Stat.Spr) * 0.025f) * statMultiplier + 0.4f;
+                    case DamageType.Alchemic:
+                        return (Stats.GetStat(Stat.Dex) * 0.05f + Stats.GetStat(Stat.Str) * 0.03f) * statMultiplier + 0.4f;
                     default:
                         return (Stats.GetStat(Stat.Str) * 0.05f + Stats.GetStat(Stat.Agi) * 0.03f) * statMultiplier + 0.4f;
                 }
